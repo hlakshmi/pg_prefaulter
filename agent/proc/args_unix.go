@@ -11,6 +11,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//go:build darwin || dragonfly || freebsd || linux || netbsd || openbsd
 // +build darwin dragonfly freebsd linux netbsd openbsd
 
 package proc
@@ -41,7 +42,7 @@ func FindWALFileFromPIDArgs(ctx context.Context, pids []PID) (pg.WALFilename, er
 // postgres: writer process
 // postgres: wal writer process
 // postgres: startup process   recovering 000000010000000C000000A1
-var psRE = regexp.MustCompile(`^postgres: startup [process]*[\s]+recovering[\s]+([0-9A-F]{24})`)
+var psRE = regexp.MustCompile(`^postgres: startup[\sprocess]*[\s]+recovering[\s]+([0-9A-F]{24})`)
 
 // findWALFileFromPIDArgsViaPS searches a slice of PIDs to find the WAL filename
 // being currently processed by using the ps(1) command.
